@@ -26,14 +26,14 @@ fetch_pokemon() {
     fi
 }
 
-# تشغيل كل بوكيمون في الخلفية
+# تشغيل جميع العمليات في الخلفية
 for P in "${POKEMONS[@]}"; do
     fetch_pokemon $P &
 done
 
-# التحقق من اكتمال كل العمليات الخلفية
-while jobs %% >/dev/null 2>&1; do
-    sleep 1
+# الانتظار والتحكم بالعمليات
+for job in $(jobs -p); do
+    wait $job || kill $job
 done
 
 echo "All parallel fetches completed ✅"

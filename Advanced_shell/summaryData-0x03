@@ -3,7 +3,6 @@
 OUTPUT_CSV="pokemon_report.csv"
 echo "Name,Height (m),Weight (kg)" > $OUTPUT_CSV
 
-# استخراج البيانات لكل بوكيمون
 for FILE in pokemon_data/*.json; do
     NAME=$(jq -r '.name' $FILE | sed 's/.*/\u&/')
     HEIGHT=$(jq -r '.height' $FILE)

@@ -4,11 +4,9 @@ POKEMON="pikachu"
 OUTPUT_FILE="data.json"
 ERROR_FILE="errors.txt"
 
-# إرسال طلب API وحفظه
 response=$(curl -s -w "%{http_code}" "https://pokeapi.co/api/v2/pokemon/$POKEMON" -o $OUTPUT_FILE)
 http_code=$(tail -n1 <<< "$response")
 
-# التحقق من حالة الطلب
 if [ "$http_code" != "200" ]; then
     echo "Failed to fetch $POKEMON. HTTP Code: $http_code" >> $ERROR_FILE
     echo "Error logged in $ERROR_FILE"

@@ -2,11 +2,11 @@
 
 FILE="data.json"
 
-# استخراج البيانات
-NAME=$(jq -r '.name' $FILE | sed 's/.*/\u&/')  # Capitalize first letter
-HEIGHT=$(jq -r '.height' $FILE)
-WEIGHT=$(jq -r '.weight' $FILE)
-TYPE=$(jq -r '.types[0].type.name' $FILE | sed 's/.*/\u&/')  # Capitalize first letter
+# استخدام jq + awk + sed
+NAME=$(jq -r '.name' $FILE | awk '{print toupper(substr($0,1,1)) substr($0,2)}')
+HEIGHT=$(jq -r '.height' $FILE | awk '{print $1}')
+WEIGHT=$(jq -r '.weight' $FILE | awk '{print $1}')
+TYPE=$(jq -r '.types[0].type.name' $FILE | sed 's/.*/\u&/')
 
-# تنسيق الإخراج
+# الصياغة المطلوبة
 echo "$NAME is of type $TYPE, weighs ${WEIGHT}kg, and is ${HEIGHT}m tall."
