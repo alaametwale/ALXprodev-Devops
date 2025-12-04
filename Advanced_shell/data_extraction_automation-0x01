@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FILE="data.json"
+
+NAME=$(jq -r '.name' $FILE | awk '{print toupper(substr($0,1,1)) substr($0,2)}')
+HEIGHT=$(jq -r '.height' $FILE)
+WEIGHT=$(jq -r '.weight' $FILE)
+TYPE=$(jq -r '.types[0].type.name' $FILE | awk '{print toupper(substr($0,1,1)) substr($0,2)}')
+
+echo "$NAME is of type $TYPE, weighs $WEIGHTkg, and is $HEIGHTm tall."
